@@ -71,6 +71,92 @@ Generates comprehensive progress overview:
 - `loadFromStorage()` - Retrieves saved app data
 - `getTrackingData()` - Retrieves milestone tracking data
 
+##### `saveChildInfo()`
+Handles saving and updating child profile information:
+
+**Implementation Details:**
+```javascript
+async function saveChildInfo() {
+    // Validation & API call
+    // State updates & UI feedback
+}
+```
+
+**Features:**
+- Async/await pattern for API interaction
+- Form validation
+- Visual feedback for success/error states
+- Local state synchronization
+- Automatic UI updates
+
+**API Endpoint:**
+- Method: `PUT`
+- Path: `/api/child`
+- Content-Type: `application/json`
+- Payload:
+  ```json
+  {
+    "name": string,
+    "birth_date": string,
+    "current_age_months": number
+  }
+  ```
+
+**Success Flow:**
+1. Validate form inputs
+2. Send API request
+3. Update local state
+4. Show success notification
+5. Update related UI components
+
+**Error Handling:**
+- Form validation errors
+- API communication failures
+- Server-side errors
+- Network issues
+
+**UI Feedback:**
+```css
+.alert-success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+}
+```
+
+**Usage Example:**
+```html
+<button class="btn btn-primary" onclick="saveChildInfo()">
+    Save Child Info
+</button>
+```
+
+**Dependencies:**
+- Requires `state.js` for local state management
+- Requires `utils.js` for helper functions
+- Requires backend API endpoint availability
+
+**Testing:**
+```bash
+# Start server
+node server.js
+
+# Access application
+open http://localhost:3000
+
+# Test scenarios
+1. Valid data submission
+2. Invalid data handling
+3. Network error scenarios
+4. State persistence
+```
+
 ## UI Components
 
 ### Charts

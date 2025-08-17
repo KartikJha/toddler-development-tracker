@@ -1,0 +1,366 @@
+{
+  "child_info": {
+    "name": "Agastya",
+    "birth_date": "2024-05-30",
+    "current_age_months": 14
+  },
+  "milestone_definitions": {
+    "gross_motor": {
+      "walks_alone": {
+        "description": "Walks alone",
+        "typical_age_range": [
+          12,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "runs_with_balance": {
+        "description": "Runs with balance",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "medium"
+      },
+      "climbs_furniture_steps": {
+        "description": "Climbs furniture or steps",
+        "typical_age_range": [
+          12,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "kicks_ball_forward": {
+        "description": "Kicks ball forward",
+        "typical_age_range": [
+          18,
+          24
+        ],
+        "playschool_importance": "medium"
+      },
+      "pushes_pulls_toy_walking": {
+        "description": "Pushes or pulls toy while walking",
+        "typical_age_range": [
+          14,
+          24
+        ],
+        "playschool_importance": "low"
+      },
+      "jumps_both_feet": {
+        "description": "Jumps with both feet",
+        "typical_age_range": [
+          20,
+          24
+        ],
+        "playschool_importance": "medium"
+      }
+    },
+    "fine_motor": {
+      "pincer_grip": {
+        "description": "Uses pincer grip well",
+        "typical_age_range": [
+          12,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "stacks_blocks": {
+        "description": "Stacks 3–6 blocks",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "turns_pages": {
+        "description": "Turns pages one at a time",
+        "typical_age_range": [
+          16,
+          24
+        ],
+        "playschool_importance": "medium"
+      },
+      "scribbles_crayon": {
+        "description": "Scribbles with crayon",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "uses_spoon_cup": {
+        "description": "Uses spoon and cup with less spilling",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "shape_sorter": {
+        "description": "Fits shapes into sorter",
+        "typical_age_range": [
+          18,
+          24
+        ],
+        "playschool_importance": "high"
+      }
+    },
+    "cognitive": {
+      "knows_objects_by_name": {
+        "description": "Knows familiar objects by name",
+        "typical_age_range": [
+          12,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "finds_hidden_objects": {
+        "description": "Finds hidden objects under covers",
+        "typical_age_range": [
+          12,
+          18
+        ],
+        "playschool_importance": "medium"
+      },
+      "matches_objects_pictures": {
+        "description": "Matches objects to pictures",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "pretend_play": {
+        "description": "Pretend plays (feeds doll, talks on toy phone)",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "cause_effect": {
+        "description": "Understands cause-effect",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "medium"
+      },
+      "sorts_shape_color": {
+        "description": "Sorts by shape or color",
+        "typical_age_range": [
+          20,
+          24
+        ],
+        "playschool_importance": "high"
+      }
+    },
+    "language": {
+      "vocabulary_10_50_words": {
+        "description": "Uses 10–50+ words",
+        "typical_age_range": [
+          12,
+          18
+        ],
+        "playschool_importance": "high"
+      },
+      "vocabulary_50_plus": {
+        "description": "Uses 50+ words",
+        "typical_age_range": [
+          18,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "combines_2_words": {
+        "description": "Combines 2 words",
+        "typical_age_range": [
+          18,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "points_to_pictures": {
+        "description": "Points to pictures when named",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "follows_2_step_instructions": {
+        "description": "Follows 2-step instructions",
+        "typical_age_range": [
+          20,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "names_body_parts": {
+        "description": "Names body parts",
+        "typical_age_range": [
+          18,
+          24
+        ],
+        "playschool_importance": "medium"
+      },
+      "uses_pronouns": {
+        "description": "Uses simple pronouns",
+        "typical_age_range": [
+          20,
+          24
+        ],
+        "playschool_importance": "medium"
+      }
+    },
+    "social_emotional": {
+      "shows_preferences": {
+        "description": "Shows preference for certain people/toys",
+        "typical_age_range": [
+          12,
+          24
+        ],
+        "playschool_importance": "medium"
+      },
+      "parallel_play": {
+        "description": "Plays alongside other children (parallel play)",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "shows_empathy": {
+        "description": "Shows early empathy",
+        "typical_age_range": [
+          18,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "expresses_affection": {
+        "description": "Expresses affection",
+        "typical_age_range": [
+          12,
+          24
+        ],
+        "playschool_importance": "medium"
+      },
+      "shows_frustration": {
+        "description": "Shows frustration or tantrums",
+        "typical_age_range": [
+          12,
+          24
+        ],
+        "playschool_importance": "medium"
+      },
+      "tests_boundaries": {
+        "description": "Tests boundaries ('No!', 'Mine!')",
+        "typical_age_range": [
+          15,
+          24
+        ],
+        "playschool_importance": "medium"
+      }
+    },
+    "playschool_readiness": {
+      "separation_comfort": {
+        "description": "Comfortable being away from parents for short periods",
+        "typical_age_range": [
+          20,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "follows_simple_routines": {
+        "description": "Can follow simple daily routines",
+        "typical_age_range": [
+          18,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "toilet_training_awareness": {
+        "description": "Shows interest in toilet training",
+        "typical_age_range": [
+          20,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "communicates_basic_needs": {
+        "description": "Can communicate basic needs (hungry, thirsty, tired)",
+        "typical_age_range": [
+          18,
+          24
+        ],
+        "playschool_importance": "high"
+      },
+      "shares_takes_turns": {
+        "description": "Beginning to share and take turns",
+        "typical_age_range": [
+          20,
+          24
+        ],
+        "playschool_importance": "high"
+      }
+    }
+  },
+  "tracking_data": {
+    "12": {
+      "gross_motor": {
+        "walks_alone": {
+          "observed": null,
+          "date_observed": null,
+          "notes": ""
+        },
+        "climbs_furniture_steps": {
+          "observed": null,
+          "date_observed": null,
+          "notes": ""
+        }
+      },
+      "fine_motor": {
+        "pincer_grip": {
+          "observed": null,
+          "date_observed": null,
+          "notes": ""
+        }
+      },
+      "language": {
+        "vocabulary_10_50_words": {
+          "observed": null,
+          "date_observed": null,
+          "notes": ""
+        }
+      }
+    },
+    "18": {
+      "language": {
+        "vocabulary_50_plus": {
+          "observed": null,
+          "date_observed": null,
+          "notes": ""
+        },
+        "combines_2_words": {
+          "observed": null,
+          "date_observed": null,
+          "notes": ""
+        }
+      },
+      "playschool_readiness": {
+        "follows_simple_routines": {
+          "observed": null,
+          "date_observed": null,
+          "notes": ""
+        }
+      }
+    }
+  },
+  "progress_summary": {
+    "areas_of_strength": [],
+    "areas_needing_attention": [],
+    "playschool_readiness_score": 0,
+    "next_assessment_date": ""
+  }
+}

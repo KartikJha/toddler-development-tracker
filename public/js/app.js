@@ -19,19 +19,67 @@ function showTab(tabName) {
 }
 
 // Child info management
-function saveChildInfo() {
+async function saveChildInfo() {
     const name = document.getElementById('childName').value;
     const birthDate = document.getElementById('birthDate').value;
     const currentAge = parseInt(document.getElementById('currentAge').value);
     
-    if (name && birthDate && currentAge) {
-        appData.child_info = { name, birth_date: birthDate, current_age_months: currentAge };
+    if (!name || !birthDate || !currentAge) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
+    try {
+        const response = await fetch('/api/child', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name,
+                birth_date: birthDate,
+                current_age_months: currentAge
+            })
+        });
+
+        const data = await response.json();
+        
+        if (!response.ok) {
+            throw new Error(data.error || 'Failed to save child information');
+        }
+
+        // Update local state
+        appData.child_info = data.child_info;
         saveToStorage();
+        
+        // Update UI
         updateOverview();
         updateMilestones();
-        alert('Child information saved successfully!');
-    } else {
-        alert('Please fill in all fields.');
+        
+        // Show success message
+        const successMessage = document.createElement('div');
+        successMessage.className = 'alert alert-success';
+        successMessage.textContent = '✅ Child information saved successfully!';
+        
+        const container = document.querySelector('.child-info');
+        container.insertBefore(successMessage, container.firstChild);
+        
+        // Remove success message after 3 seconds
+        setTimeout(() => successMessage.remove(), 3000);
+
+    } catch (error) {
+        console.error('Error saving child info:', error);
+        
+        // Show error message
+        const errorMessage = document.createElement('div');
+        errorMessage.className = 'alert alert-error';
+        errorMessage.textContent = `❌ ${error.message}`;
+        
+        const container = document.querySelector('.child-info');
+        container.insertBefore(errorMessage, container.firstChild);
+        
+        // Remove error message after 5 seconds
+        setTimeout(() => errorMessage.remove(), 5000);
     }
 }
 
