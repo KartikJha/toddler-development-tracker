@@ -157,6 +157,158 @@ open http://localhost:3000
 4. State persistence
 ```
 
+## Data Schema Evolution
+
+### Current Schema Structure
+```json
+{
+  "auth": {
+    "credentials": { /* authentication data */ }
+  },
+  "child_info": {
+    "basic": { /* core child data */ },
+    "parent_info": { /* optional parent metadata */ },
+    "emergency_contacts": [ /* optional emergency contacts */ ],
+    "medical_info": { /* optional medical data */ }
+  },
+  "milestone_definitions": { /* development milestones */ },
+  "tracking_data": { /* milestone observations */ },
+  "progress_summary": { /* calculated metrics */ }
+}
+```
+
+### Performance Considerations
+
+#### Storage Optimization
+- Basic child info: ~100 bytes
+- Parent metadata: ~500 bytes (optional)
+- Emergency contacts: ~200 bytes per contact (optional)
+- Medical info: ~300 bytes (optional)
+
+**Optimizations:**
+1. Lazy loading of optional sections
+2. Partial data updates using specific endpoints
+3. Cached reads for frequently accessed data
+
+```javascript
+// Example of optimized data fetching
+async function getChildData(sections = ['basic']) {
+    const data = await readData();
+    return sections.reduce((acc, section) => {
+        acc[section] = data.child_info[section];
+        return acc;
+    }, {});
+}
+```
+
+### Versatility Improvements
+
+#### Modular Design
+1. **Core Data Separation**
+   - Essential child information
+   - Development tracking
+   - Progress metrics
+
+2. **Optional Extensions**
+   - Parent information
+   - Emergency contacts
+   - Medical records
+   - Custom metadata fields
+
+#### API Flexibility
+```javascript
+// Example of flexible data updates
+PUT /api/child/basic      // Core info only
+PUT /api/child/parent     // Parent info
+PUT /api/child/medical    // Medical data
+PUT /api/child/emergency  // Emergency contacts
+```
+
+### Design Tradeoffs
+
+#### Benefits
+1. **Backward Compatibility**
+   - Existing features work without optional data
+   - Gradual feature adoption possible
+
+2. **Data Independence**
+   - Core tracking works without personal data
+   - Medical info can be added later
+
+3. **Security Isolation**
+   - Sensitive data in separate sections
+   - Granular access control possible
+
+#### Challenges
+1. **Query Complexity**
+   - Multiple sections require joined queries
+   - Need to handle missing optional data
+
+2. **Consistency Management**
+   - Cross-section data validation
+   - Partial update synchronization
+
+```javascript
+// Example of consistency handling
+async function updateChildInfo(data) {
+    const current = await readData();
+    validateCrossReferences(data, current);
+    await writeData(mergeData(current, data));
+}
+```
+
+### Implementation Guidelines
+
+#### 1. Data Validation
+```javascript
+const schema = {
+    required: ['name', 'birth_date'],
+    optional: ['parent_info', 'medical_info']
+};
+
+function validateData(data) {
+    // Validate required fields
+    // Check optional sections if present
+}
+```
+
+#### 2. Migration Strategy
+```bash
+# Schema migration steps
+1. Add new optional fields
+2. Update validation logic
+3. Add new API endpoints
+4. Update UI components
+```
+
+#### 3. Performance Monitoring
+```javascript
+console.time('data-load');
+const data = await readData();
+console.timeEnd('data-load');
+
+console.time('query-optional');
+const medical = data.child_info.medical_info;
+console.timeEnd('query-optional');
+```
+
+### Best Practices
+
+1. **Data Access**
+   - Use partial loading for large datasets
+   - Cache frequently accessed sections
+   - Implement proper error handling
+
+2. **Updates**
+   - Use atomic operations
+   - Validate cross-references
+   - Maintain audit trails
+
+3. **Security**
+   - Encrypt sensitive data
+   - Implement role-based access
+   - Regular security audits
+
 ## UI Components
 
 ### Charts

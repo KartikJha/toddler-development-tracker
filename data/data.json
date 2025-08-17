@@ -1,8 +1,44 @@
 {
+  "auth": {
+    "credentials": {
+      "email": "parent@example.com",
+      "password_hash": "hashedPasswordString",
+      "last_login": "2024-08-17T10:00:00Z"
+    }
+  },
   "child_info": {
     "name": "Agastya",
     "birth_date": "2024-05-30",
-    "current_age_months": 14
+    "current_age_months": 14,
+    "parent_info": {
+      "primary": {
+        "name": "Parent Name",
+        "relationship": "mother",
+        "email": "parent@example.com",
+        "phone": "+1234567890",
+        "preferred_contact": "email"
+      },
+      "secondary": {
+        "name": "Secondary Parent Name",
+        "relationship": "father",
+        "email": "secondary@example.com",
+        "phone": "+1234567891",
+        "preferred_contact": "phone"
+      }
+    },
+    "emergency_contacts": [
+      {
+        "name": "Emergency Contact",
+        "relationship": "grandmother",
+        "phone": "+1234567892"
+      }
+    ],
+    "medical_info": {
+      "allergies": [],
+      "medications": [],
+      "special_needs": "",
+      "blood_type": "O+"
+    }
   },
   "milestone_definitions": {
     "gross_motor": {
