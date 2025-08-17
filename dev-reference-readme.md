@@ -390,3 +390,195 @@ console.log('Storage state:', localStorage.getItem('toddlerTrackerData'));
 3. Test visualization updates
 4. Maintain UI responsiveness
 5. Update documentation
+
+## Authentication & Authorization
+
+### Security Configuration
+```javascript
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+const SALT_ROUNDS = 10; // bcrypt salt rounds
+```
+
+### Authentication Middleware
+
+The `authenticateToken` middleware protects private routes:
+
+```javascript
+async function authenticateToken(req, reply) {
+  // Validates JWT token from Authorization header
+  // Adds decoded user info to req.user
+}
+```
+
+#### Protected Routes
+All routes except the following require authentication:
+- `/api/auth/register`
+- `/api/auth/login`
+- `/`
+- `/index.html`
+
+### Authentication APIs
+
+#### 1. User Registration
+```http
+POST /api/auth/register
+Content-Type: application/json
+
+{
+  "email": "parent@example.com",
+  "password": "secure123",
+  "name": "Parent Name",      // optional
+  "relationship": "mother"    // optional
+}
+
+Response 200:
+{
+  "ok": true,
+  "token": "jwt_token_string",
+  "user": {
+    "email": "parent@example.com",
+    "name": "Parent Name"
+  }
+}
+
+Response 409: // Email exists
+{
+  "error": "Email already registered"
+}
+```
+
+#### 2. User Login
+```http
+POST /api/auth/login
+Content-Type: application/json
+
+{
+  "email": "parent@example.com",
+  "password": "secure123"
+}
+
+Response 200:
+{
+  "ok": true,
+  "token": "jwt_token_string",
+  "user": {
+    "email": "parent@example.com",
+    "name": "Parent Name"
+  }
+}
+
+Response 401:
+{
+  "error": "Invalid credentials"
+}
+```
+
+#### 3. Update Parent Information
+```http
+PUT /api/parent
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "primary": {
+    "name": "Updated Name",
+    "phone": "+1234567890",
+    "preferred_contact": "phone"
+  },
+  "secondary": {
+    "name": "Partner Name",
+    "relationship": "father",
+    "email": "partner@example.com"
+  }
+}
+
+Response 200:
+{
+  "ok": true,
+  "parent_info": {
+    "primary": { /* updated info */ },
+    "secondary": { /* updated info */ }
+  }
+}
+```
+
+#### 4. Update Authentication Info
+```http
+PUT /api/auth
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "current_password": "old_password",
+  "new_password": "new_password",
+  "email": "new_email@example.com"  // optional
+}
+
+Response 200:
+{
+  "ok": true,
+  "email": "new_email@example.com"
+}
+
+Response 401:
+{
+  "error": "Invalid current password"
+}
+```
+
+### Security Best Practices
+
+1. **Environment Variables**
+   - Set `JWT_SECRET` in production
+   - Never commit secrets to version control
+
+2. **Password Security**
+   - Passwords are hashed using bcrypt
+   - Salt rounds configurable via `SALT_ROUNDS`
+   - Enforce password complexity (TODO)
+
+3. **JWT Tokens**
+   - 24-hour expiration
+   - Contains user email in payload
+   - Used for subsequent authenticated requests
+
+4. **Data Protection**
+   - Sensitive data stored in separate sections
+   - Optional parent metadata
+   - Granular update permissions
+
+### Testing Authentication
+
+Using curl:
+```bash
+# Register new user
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"secret123"}'
+
+# Login
+curl -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"secret123"}'
+
+# Use protected route
+curl -X GET http://localhost:3000/api/app \
+  -H "Authorization: Bearer <token>"
+```
+
+### Future Enhancements
+
+1. **Token Management**
+   - Implement refresh tokens
+   - Add token revocation
+   - Track active sessions
+
+2. **Security Hardening**
+   - Rate limiting
+   - Password complexity rules
+   - 2FA support
+
+3. **User Management**
+   - Password reset flow
+   - Email verification
+   - Account deletion
