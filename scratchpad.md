@@ -268,3 +268,27 @@
             const percentage = maxScore > 0 ? Math.round((score / maxScore) * 100) : 0;
             // document.getElementByI
         }
+
+### toddler development auth curls
+
+# Register
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"secret123","name":"Test Parent"}'
+
+# Login
+curl -X POST http://localhost:3000/api/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"secret123"}'
+
+# Update parent info (with token)
+curl -X PUT http://localhost:3000/api/parent \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{"primary":{"phone":"+1234567890"}}'
+
+# Update password (with token)
+curl -X PUT http://localhost:3000/api/auth \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <token>" \
+  -d '{"current_password":"secret123","new_password":"newSecret123"}'

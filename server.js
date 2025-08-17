@@ -48,10 +48,11 @@ app.addHook('preHandler', async (req, reply) => {
     '/api/auth/register',
     '/api/auth/login',
     '/',
-    '/index.html'
+    '/index.html',
+    '/js'
   ];
-  
-  if (!publicPaths.includes(req.routerPath)) {
+
+  if (req.routerPath && !publicPaths.some(path => req.routerPath.startsWith(path))) {
     await authenticateToken(req, reply);
   }
 });

@@ -1,9 +1,9 @@
 {
   "auth": {
     "credentials": {
-      "email": "parent@example.com",
-      "password_hash": "hashedPasswordString",
-      "last_login": "2024-08-17T10:00:00Z"
+      "email": "test@example.com",
+      "password_hash": "$2b$10$Fgf4qwLwMNez95vUyrgYPue53tzzzn/QtvY2TcxZx0vy2Q/.6yirG",
+      "last_login": "2025-08-17T17:17:35.679Z"
     }
   },
   "child_info": {
@@ -12,18 +12,11 @@
     "current_age_months": 14,
     "parent_info": {
       "primary": {
-        "name": "Parent Name",
-        "relationship": "mother",
-        "email": "parent@example.com",
-        "phone": "+1234567890",
-        "preferred_contact": "email"
-      },
-      "secondary": {
-        "name": "Secondary Parent Name",
-        "relationship": "father",
-        "email": "secondary@example.com",
-        "phone": "+1234567891",
-        "preferred_contact": "phone"
+        "name": "Test Parent",
+        "relationship": "parent",
+        "email": "test@example.com",
+        "preferred_contact": "email",
+        "phone": "+1234567890"
       }
     },
     "emergency_contacts": [
