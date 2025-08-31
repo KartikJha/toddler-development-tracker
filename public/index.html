@@ -75,6 +75,11 @@
             min-height: 600px;
         }
 
+        .auth-content {
+            padding: 30px;
+            min-height: 600px;
+        }
+
         .child-info {
             background: #f8f9fa;
             padding: 20px;
@@ -551,7 +556,8 @@
             <p>Preparing your little one for playschool success!</p>
         </div>
 
-        <div id="auth" class="tab-content">
+        <!-- AUTH VIEW: visible by default -->
+        <div id="auth" class="auth-content" style="display: block;">
             <div class="auth-container">
                 <div class="auth-tabs">
                     <button class="auth-tab active" onclick="switchAuthMode('login')">Login</button>
@@ -596,14 +602,16 @@
             </div>
         </div>
 
-        <div class="nav-tabs">
+        <!-- NAV TABS: hidden by default -->
+        <div class="nav-tabs" style="display: none;">
             <button class="nav-tab active" onclick="showTab('profile')">Child Profile</button>
             <button class="nav-tab" onclick="showTab('tracking')">Track Milestones</button>
             <button class="nav-tab" onclick="showTab('progress')">Progress & Insights</button>
             <button class="nav-tab" onclick="showTab('data')">Data Management</button>
         </div>
 
-        <div id="profile" class="tab-content">
+        <!-- All tab-content sections: hidden by default except #auth -->
+        <div id="profile" class="tab-content" style="display: none;">
             <div class="child-info">
                 <h3>Child Information</h3>
                 <div class="form-group">
@@ -668,12 +676,6 @@
 
         <div id="recommendations" class="recommendations-container"></div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            initApp();
-        });
-    </script>
 </body>
 
 </html>

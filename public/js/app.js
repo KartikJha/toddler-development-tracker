@@ -29,6 +29,12 @@ async function saveChildInfo() {
         return;
     }
 
+    const childInfo = {
+        name,
+        birth_date: birthDate,
+        current_age_months: currentAge
+    };
+
     try {
         const response = await fetch('/api/child', {
             method: 'PUT',
@@ -36,11 +42,7 @@ async function saveChildInfo() {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${authToken}`
             },
-            body: JSON.stringify({
-                name,
-                birth_date: birthDate,
-                current_age_months: currentAge
-            })
+            body: JSON.stringify(childInfo)
         });
 
         const data = await response.json();

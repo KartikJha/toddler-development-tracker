@@ -1,37 +1,15 @@
 {
   "auth": {
     "credentials": {
-      "email": "test@example.com",
-      "password_hash": "$2b$10$Fgf4qwLwMNez95vUyrgYPue53tzzzn/QtvY2TcxZx0vy2Q/.6yirG",
-      "last_login": "2025-08-17T17:17:35.679Z"
+      "email": "kajha@diligent.com",
+      "password_hash": "$2b$10$s9.Qw3mg7YCp/LumBqvh2..tYqKUSS3Lh0kyzUdFBYFhPDYTZmqiC",
+      "last_login": "2025-08-31T18:02:19.070Z"
     }
   },
   "child_info": {
-    "name": "Agastya",
+    "name": "Agastya 1",
     "birth_date": "2024-05-30",
-    "current_age_months": 14,
-    "parent_info": {
-      "primary": {
-        "name": "Test Parent",
-        "relationship": "parent",
-        "email": "test@example.com",
-        "preferred_contact": "email",
-        "phone": "+1234567890"
-      }
-    },
-    "emergency_contacts": [
-      {
-        "name": "Emergency Contact",
-        "relationship": "grandmother",
-        "phone": "+1234567892"
-      }
-    ],
-    "medical_info": {
-      "allergies": [],
-      "medications": [],
-      "special_needs": "",
-      "blood_type": "O+"
-    }
+    "current_age_months": 14
   },
   "milestone_definitions": {
     "gross_motor": {

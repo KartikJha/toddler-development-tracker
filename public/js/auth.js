@@ -1,5 +1,28 @@
 let authToken = null;
 
+function showAlert(msg, type = 'error') {
+    // ...existing code...
+}
+
+function switchAuthMode(mode) {
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const loginTab = document.querySelector('.auth-tab:first-child');
+    const registerTab = document.querySelector('.auth-tab:last-child');
+
+    if (mode === 'login') {
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+    } else {
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+        loginTab.classList.remove('active');
+        registerTab.classList.add('active');
+    }
+}
+
 async function handleLogin(event) {
     event.preventDefault();
     
@@ -21,8 +44,7 @@ async function handleLogin(event) {
 
         authToken = data.token;
         localStorage.setItem('authToken', authToken);
-        updateUIForAuthenticatedUser(data.user);
-        showTab('profile');
+        await onAuthSuccess(data.user);
 
     } catch (error) {
         showAlert(error.message, 'error');
@@ -57,8 +79,7 @@ async function handleRegister(event) {
 
         authToken = data.token;
         localStorage.setItem('authToken', authToken);
-        updateUIForAuthenticatedUser(data.user);
-        showTab('profile');
+        await onAuthSuccess(data.user);
 
     } catch (error) {
         showAlert(error.message, 'error');
@@ -121,25 +142,6 @@ async function updateAuthInfo(currentPassword, newPassword, email) {
     }
 }
 
-function switchAuthMode(mode) {
-    const loginForm = document.getElementById('loginForm');
-    const registerForm = document.getElementById('registerForm');
-    const loginTab = document.querySelector('.auth-tab:first-child');
-    const registerTab = document.querySelector('.auth-tab:last-child');
-
-    if (mode === 'login') {
-        loginForm.style.display = 'block';
-        registerForm.style.display = 'none';
-        loginTab.classList.add('active');
-        registerTab.classList.remove('active');
-    } else {
-        loginForm.style.display = 'none';
-        registerForm.style.display = 'block';
-        loginTab.classList.remove('active');
-        registerTab.classList.add('active');
-    }
-}
-
 function updateUIForAuthenticatedUser(user) {
     // Hide auth forms
     document.getElementById('auth').style.display = 'none';
@@ -153,39 +155,59 @@ function updateUIForAuthenticatedUser(user) {
     header.innerHTML += `<p>Welcome, ${user.name || user.email}!</p>`;
 }
 
-function checkAuthStatus() {
+async function verifyTokenAndLoad() {
     const token = localStorage.getItem('authToken');
-    if (token) {
-        authToken = token;
-        // Verify token and update UI
-        fetch('/api/app', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        }).then(response => {
-            if (response.ok) {
-                updateUIForAuthenticatedUser({ email: 'user@example.com' });
-            } else {
-                localStorage.removeItem('authToken');
-                showAuth();
-            }
-        }).catch(() => {
-            localStorage.removeItem('authToken');
-            showAuth();
+    if (!token) {
+        showAuthView();
+        return;
+    }
+    authToken = token;
+    try {
+        // Use a protected endpoint to verify token and fetch child/parent info
+        const res = await fetch('/api/app', {
+            method: 'GET',
+            headers: { 'Authorization': `Bearer ${authToken}` }
         });
-    } else {
-        showAuth();
+        if (!res.ok) throw new Error('Token invalid or expired');
+        const data = await res.json();
+        if (window.appData && data.child_info) {
+            window.appData.child_info = data.child_info;
+        }
+        await onAuthSuccess(data.user || { email: data.child_info?.parent_info?.primary?.email });
+    } catch (err) {
+        localStorage.removeItem('authToken');
+        authToken = null;
+        showAuthView();
     }
 }
 
-function showAuth() {
-    document.getElementById('auth').style.display = 'block';
-    document.querySelector('.nav-tabs').style.display = 'none';
-    Array.from(document.getElementsByClassName('tab-content'))
-        .forEach(el => el.style.display = 'none');
+async function onAuthSuccess(user) {
+    // Hide auth, show nav-tabs and profile tab
+    document.getElementById('auth').style.display = 'none';
+    document.querySelector('.nav-tabs').style.display = 'flex';
+    document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+    document.getElementById('profile').style.display = 'block';
+    // Optionally update header
+    const header = document.querySelector('.header');
+    if (header) header.innerHTML += `<p>Welcome, ${user?.name || user?.email || 'User'}!</p>`;
+    // Make token available globally
+    window.authToken = authToken;
+    // Now initialize the app
+    if (typeof window.initApp === 'function') {
+        try { await window.initApp(); } catch (e) { console.error('initApp failed', e); }
+    }
 }
 
-// Initialize auth
+function showAuthView() {
+    document.getElementById('auth').style.display = 'block';
+    document.querySelector('.nav-tabs').style.display = 'none';
+    document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('loginForm').addEventListener('submit', handleLogin);
     document.getElementById('registerForm').addEventListener('submit', handleRegister);
-    checkAuthStatus();
+    // Only show auth view on load, verify token if present
+    showAuthView();
+    verifyTokenAndLoad();
 });
