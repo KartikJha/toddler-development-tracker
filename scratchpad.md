@@ -292,3 +292,10 @@ curl -X PUT http://localhost:3000/api/auth \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer <token>" \
   -d '{"current_password":"secret123","new_password":"newSecret123"}'
+
+# gpt-oss quantization
+
+python -m mlc_llm convert_weight ./tools/gpt-oss-20b/original/ \
+    --quantization q4f16_1 \
+    --model-type qwen3_moe \
+    -o ./tools/gpt-oss-20b-int4/
