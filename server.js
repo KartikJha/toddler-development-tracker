@@ -19,6 +19,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
 const SALT_ROUNDS = 10;
 
 async function authenticateToken(req, reply) {
+  console.log('Authenticate Token called!!!');
   const authHeader = req.headers.authorization;
   const token = authHeader && authHeader.split(' ')[1];
 
